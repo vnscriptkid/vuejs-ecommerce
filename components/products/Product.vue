@@ -1,5 +1,5 @@
 <template>
-  <div :key="product.slug" class="card" style="max-width: 300px">
+  <div :key="product.slug" class="card">
     <div class="card-image">
       <figure class="image is-4by3">
         <nuxt-link :to="linkToDetail">
@@ -11,6 +11,7 @@
       <nuxt-link :to="linkToDetail">
         <p class="title is-4">{{ product.name }}</p>
       </nuxt-link>
+        <p class="subtitle">{{ product.price }}</p>
 
       <div class="content">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit.

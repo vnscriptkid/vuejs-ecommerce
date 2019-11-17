@@ -1,10 +1,12 @@
 <template>
   <div class="container" style="margin-top: 2rem;">
-    <template v-for="product in products">
-      <div :key="product.slug" class="card" style="max-width: 300px">
-        <Product :product="product"/>
-      </div>
-    </template>
+    <div class="columns">
+      <template v-for="product in products">
+        <div :key="product.slug" class="card column is-3">
+          <Product :product="product"/>
+        </div>
+      </template>
+    </div>
   </div>
 </template>
 

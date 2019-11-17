@@ -6,8 +6,9 @@
       </div>
       <div class="column">
         <h2 class="subtitle is-1">{{ product.name }}</h2>
-        <p>Description: {{ product.description }}</p>
-        <h2 class="subtitle is-2">Price: ${{ product.price }}</h2>
+        <p>{{ product.description }}</p>
+        <hr>
+        <h2 class="subtitle is-2">Price: {{ product.price }}</h2>
       </div>
     </div>
   </div>

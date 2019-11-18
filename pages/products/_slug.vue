@@ -33,8 +33,8 @@
             </ProductVariation>
 
             <!-- Allow submit only when sth selected -->
-            <div :v-if="form.variation" class="field" style="margin-top: 1.5rem;">
-              <button type="submit" class="button is-success">Add to Cart</button>
+            <div class="field" style="margin-top: 1.5rem;">
+              <button :disabled="!form.variation || !product.in_stock" type="submit" class="button is-success">Add to Cart</button>
             </div>
           </form>
         </section>

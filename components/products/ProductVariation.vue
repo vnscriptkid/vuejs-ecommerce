@@ -50,10 +50,7 @@ export default {
   methods: {
     changed (event, type) {
       const variation = this.findVariation(parseInt(event.target.value))
-      if (!variation) {
-        return
-      }
-      this.$emit('selectVariation', variation)
+      this.$emit('selectVariation', variation || '')
     },
     findVariation (id) {
       return this.variations.find(variation => id === variation.id)

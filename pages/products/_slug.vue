@@ -14,7 +14,11 @@
         <h2 class="subtitle is-1">{{ product.name }}</h2>
         <p>{{ product.description }}</p>
         <hr>
-        <h2 class="subtitle is-2">{{ product.price }}</h2>
+        <h2 class="subtitle is-2">{{ product.price }}
+          <span v-if="!product.in_stock" class="button is-rounded is-danger">
+            Out of stock
+          </span>
+        </h2>
 
         <!-- product variations selection -->
         <section>

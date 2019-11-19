@@ -43,8 +43,19 @@ export default {
     '@nuxtjs/bulma',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/auth'
   ],
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'auth/login', method: 'post', propertyName: 'meta.token' },
+          user: { url: '/auth/me', method: 'get', propertyName: 'data' }
+        }
+      }
+    }
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -66,6 +77,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend (config, ctx) {}
   }
 }

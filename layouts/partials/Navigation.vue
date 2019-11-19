@@ -42,16 +42,34 @@
           </template>
         </div>
 
+        <!-- right nav -->
         <div class="navbar-end">
+          <!-- in case logged out -->
           <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary">
-                <strong>Sign up</strong>
-              </a>
-              <nuxt-link :to="{name: 'auth-signin'}" class="button is-light">Log in</nuxt-link>
-            </div>
+            <template v-if="!$auth.loggedIn">
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>Sign up</strong>
+                </a>
+                <nuxt-link :to="{name: 'auth-signin'}" class="button is-light">Log in</nuxt-link>
+              </div>
+            </template>
           </div>
+
+          <!-- in case loged in -->
+          <template v-if="$auth.loggedIn">
+            <div class="navbar-item">
+              <a href="#">Cart (0)</a>
+            </div>
+            <div class="navbar-item">
+              <a href="#">Orders</a>
+            </div>
+            <div class="navbar-item">
+              Hello, {{ $auth.user.name }}
+            </div>
+          </template>
         </div>
+
       </div>
     </div>
   </nav>

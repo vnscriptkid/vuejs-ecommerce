@@ -59,7 +59,7 @@
           <!-- in case loged in -->
           <template v-if="$auth.loggedIn">
             <div class="navbar-item">
-              <a href="#">Cart ({{ cartSize }})</a>
+              <nuxt-link :to="{name: 'cart'}">Cart ({{ cartSize }})</nuxt-link>
             </div>
             <div class="navbar-item">
               <a href="#">Orders</a>

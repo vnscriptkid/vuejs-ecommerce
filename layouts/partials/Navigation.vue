@@ -59,7 +59,7 @@
           <!-- in case loged in -->
           <template v-if="$auth.loggedIn">
             <div class="navbar-item">
-              <a href="#">Cart (0)</a>
+              <a href="#">Cart ({{ cartSize }})</a>
             </div>
             <div class="navbar-item">
               <a href="#">Orders</a>
@@ -81,7 +81,8 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      categoryList: 'categories'
+      categoryList: 'categories',
+      cartSize: 'cart/cartSize'
     })
   }
 }

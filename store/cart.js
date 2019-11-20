@@ -20,5 +20,10 @@ export const actions = {
     commit('SET_PRODUCTS', response.data.products)
 
     return response
+  },
+  async removeItem ({ dispatch }, id) {
+    await this.$axios.$delete(`cart/${id}`)
+    // reload whole cart
+    dispatch('getCart')
   }
 }

@@ -3,6 +3,7 @@
     <table class="table is-striped is-hoverable is-fullwidth">
       <thead>
         <tr>
+          <th>ID</th>
           <th>Image</th>
           <th>Name</th>
           <th>Price</th>

@@ -7,7 +7,11 @@
     <td>{{ item.product.name }} / {{ item.name }}</td>
     <td>{{ item.price }}</td>
     <td>
-      <input type="number" :value="item.quantity" min="1" :max="item.stock_count">
+      <input type="number" v-model="quantity" min="1" :max="item.stock_count">
+      <div v-if="quantityChanged">
+        <button @click="updateQuantity">Update</button>
+        <button @click="cancelUpdate">Cancel</button>
+      </div>
     </td>
     <td>{{ item.subTotal }}</td>
     <td>
@@ -20,6 +24,18 @@
 import { mapActions } from 'vuex'
 
 export default {
+  data () {
+    return {
+      quantity: this.item.quantity,
+      originalQuantity: this.item.quantity,
+      quantityChanged: false
+    }
+  },
+  watch: {
+    quantity (newQuantity, oldQuantity) {
+      this.quantityChanged = true
+    }
+  },
   props: {
     item: {
       required: true,
@@ -37,9 +53,27 @@ export default {
         }
       }
     },
+    cancelUpdate () {
+      this.quantity = this.originalQuantity
+      setTimeout(() => {
+        this.quantityChanged = false
+      }, 0)
+    },
     ...mapActions({
-      removeItem: 'cart/removeItem'
-    })
+      removeItem: 'cart/removeItem',
+      updateItem: 'cart/updateItem'
+    }),
+    async updateQuantity () {
+      if (Number(this.quantity) === Number(this.originalQuantity)) {
+        return
+      }
+      try {
+        await this.updateItem({ id: this.item.id, quantity: Number(this.quantity) })
+        this.quantityChanged = false
+      } catch (e) {
+        console.log(e)
+      }
+    }
   }
 }
 </script>

@@ -25,5 +25,12 @@ export const actions = {
     await this.$axios.$delete(`cart/${id}`)
     // reload whole cart
     dispatch('getCart')
+  },
+  async updateItem ({ dispatch }, { id, quantity }) {
+    await this.$axios.patch(`cart/${id}`, {
+      quantity: Number(quantity)
+    })
+    // reload whole cart
+    dispatch('getCart')
   }
 }

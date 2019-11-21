@@ -13,7 +13,7 @@
         <button @click="cancelUpdate">Cancel</button>
       </div>
     </td>
-    <td>{{ item.subTotal }}</td>
+    <td>{{ item.total }}</td>
     <td>
       <button @click="removeItemFromCart" class="button is-danger">Remove</button>
     </td>

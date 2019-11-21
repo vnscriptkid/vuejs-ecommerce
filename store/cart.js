@@ -1,15 +1,20 @@
 export const state = () => ({
-  products: []
+  products: [],
+  meta: null
 })
 
 export const getters = {
   cartItems: state => state.products,
-  cartSize: state => state.products.length
+  cartSize: state => state.products.length,
+  meta: state => state.meta
 }
 
 export const mutations = {
   SET_PRODUCTS (state, products) {
     state.products = products
+  },
+  SET_META (state, meta) {
+    state.meta = meta
   }
 }
 
@@ -18,6 +23,7 @@ export const actions = {
     const response = await this.$axios.$get('cart')
 
     commit('SET_PRODUCTS', response.data.products)
+    commit('SET_META', response.meta)
 
     return response
   },

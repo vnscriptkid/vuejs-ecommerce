@@ -18,6 +18,11 @@
           :item="item"
           :key="item.id"
         />
+        <tr>
+          <td colspan="4"></td>
+          <td><strong>Sub Total</strong></td>
+          <td><strong>{{ meta.subTotal }}</strong></td>
+        </tr>
       </tbody>
     </table>
       <button class="button is-success is-fullwidth">Checkout </button>
@@ -31,7 +36,8 @@ import CartItem from './CartItem'
 export default {
   computed: {
     ...mapGetters({
-      cartItems: 'cart/cartItems'
+      cartItems: 'cart/cartItems',
+      meta: 'cart/meta'
     })
   },
   components: {

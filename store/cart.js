@@ -38,5 +38,16 @@ export const actions = {
     })
     // reload whole cart
     dispatch('getCart')
+  },
+  async storeSingleItem ({ dispatch }, { id, quantity }) {
+    await this.$axios.post(`cart`, {
+      products: [
+        {
+          id,
+          quantity
+        }
+      ]
+    })
+    dispatch('getCart')
   }
 }

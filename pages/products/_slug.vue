@@ -22,7 +22,7 @@
 
         <!-- product variations selection -->
         <section>
-          <form action="#">
+          <form @submit.prevent="addToCart">
             <ProductVariation
               v-for="(variations, type) in product.variations"
               :key="type"
@@ -34,6 +34,15 @@
 
             <!-- Allow submit only when sth selected -->
             <div class="field" style="margin-top: 1.5rem;">
+              <input
+                v-model="form.quantity"
+                class="input"
+                type="number"
+                :min="1"
+                :max="form.variation.stock_count"
+                style="width: 70px; text-align: center;"
+                :disabled="!form.variation"
+              />
               <button :disabled="!form.variation || !product.in_stock" type="submit" class="button is-success">Add to Cart</button>
             </div>
           </form>
@@ -44,6 +53,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 import ProductVariation from '~/components/products/ProductVariation'
 
 export default {
@@ -62,6 +72,22 @@ export default {
   },
   components: {
     ProductVariation
+  },
+  methods: {
+    async addToCart () {
+      if (!this.form.variation) {
+        return
+      }
+      await this.storeSingleItem({ id: this.form.variation.id, quantity: Number(this.form.quantity) })
+
+      this.form = {
+        variation: '',
+        quantity: 1
+      }
+    },
+    ...mapActions({
+      storeSingleItem: 'cart/storeSingleItem'
+    })
   }
 }
 </script>

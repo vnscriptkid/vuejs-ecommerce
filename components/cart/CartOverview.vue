@@ -25,7 +25,6 @@
         </tr>
       </tbody>
     </table>
-      <button class="button is-success is-fullwidth">Checkout </button>
   </div>
 </template>
 

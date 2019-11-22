@@ -4,10 +4,10 @@
     <td>
       <img src="https://via.placeholder.com/150" alt="Placeholder image">
     </td>
-    <td>{{ item.product.name }} / {{ item.name }}</td>
+    <td>{{ item.product.name }} / {{ item.name }} {{ item.type ? `/ ${item.type}` : '' }} </td>
     <td>{{ item.price }}</td>
     <td>
-      <input type="number" v-model="quantity" min="1" :max="item.stock_count">
+      <input type="number" v-model="quantity" :min="item.stock_count ? 1 : 0" :max="item.stock_count">
       <div v-if="quantityChanged">
         <button @click="updateQuantity">Update</button>
         <button @click="cancelUpdate">Cancel</button>
@@ -34,6 +34,13 @@ export default {
   watch: {
     quantity (newQuantity, oldQuantity) {
       this.quantityChanged = true
+    },
+    async item (newItem, oldItem) {
+      if (newItem.quantity !== oldItem.quantity) {
+        this.quantity = newItem.quantity
+        await this.wait()
+        this.quantityChanged = false
+      }
     }
   },
   props: {
@@ -43,6 +50,13 @@ export default {
     }
   },
   methods: {
+    wait () {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          resolve()
+        }, 0)
+      })
+    },
     async removeItemFromCart () {
       if (confirm(`Are you sure to remove item with id ${this.item.id} from cart`)) {
         try {
@@ -64,12 +78,11 @@ export default {
       updateItem: 'cart/updateItem'
     }),
     async updateQuantity () {
-      if (Number(this.quantity) === Number(this.originalQuantity)) {
+      if (parseInt(this.quantity) === parseInt(this.originalQuantity)) {
         return
       }
       try {
         await this.updateItem({ id: this.item.id, quantity: Number(this.quantity) })
-        this.quantityChanged = false
       } catch (e) {
         console.log(e)
       }

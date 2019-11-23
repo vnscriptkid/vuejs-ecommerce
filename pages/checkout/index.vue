@@ -3,15 +3,7 @@
     <h1 class="title">Checkout</h1>
     <div class="columns">
       <div class="column is-three-quarters">
-        <article class="message is-dark">
-          <div class="message-header">
-            <p>Ship To</p>
-            <button class="delete" aria-label="delete"></button>
-          </div>
-          <div class="message-body">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. <strong>Pellentesque risus mi</strong>, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus ac ex sit amet fringilla. Nullam gravida purus diam, et dictum <a>felis venenatis</a> efficitur. Aenean ac <em>eleifend lacus</em>, in mollis lectus. Donec sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget, facilisis sodales sem.
-          </div>
-        </article>
+        <ShippingAddress :addresses="addresses"/>
         <article class="message is-dark">
           <div class="message-header">
             <p>Payment</p>
@@ -65,16 +57,27 @@
 <script>
 import { mapGetters } from 'vuex'
 import CartOverview from '~/components/cart/CartOverview'
+import ShippingAddress from '~/components/checkout/addresses/ShippingAddress'
 
 export default {
+  data () {
+    return {
+      addresses: []
+    }
+  },
   components: {
-    CartOverview
+    CartOverview,
+    ShippingAddress
   },
   computed: {
     ...mapGetters({
       cartSize: 'cart/cartSize',
       meta: 'cart/meta'
     })
+  },
+  async asyncData ({ app }) {
+    const response = await app.$axios.$get(`addresses`)
+    return { addresses: response.data }
   }
 }
 </script>

@@ -18,12 +18,16 @@
           :item="item"
           :key="item.id"
         />
+      </tbody>
+      <tfoot>
         <tr>
           <td colspan="4"></td>
           <td><strong>Sub Total</strong></td>
           <td><strong>{{ meta.subTotal }}</strong></td>
+          <td></td>
         </tr>
-      </tbody>
+        <slot name="footRows" />
+      </tfoot>
     </table>
   </div>
 </template>

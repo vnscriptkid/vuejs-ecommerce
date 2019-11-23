@@ -36,7 +36,22 @@
             <button class="delete" aria-label="delete"></button>
           </div>
           <div class="message-body">
-            <CartOverview />
+            <CartOverview>
+              <template slot="footRows">
+                <tr>
+                  <td colspan="4"></td>
+                  <td><strong>Shipping</strong></td>
+                  <td><strong>300</strong></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td colspan="4"></td>
+                  <td><strong>Total</strong></td>
+                  <td><strong>{{ meta.subTotal }}</strong></td>
+                  <td></td>
+                </tr>
+              </template>
+            </CartOverview>
           </div>
         </article>
       </div>
@@ -57,7 +72,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      cartSize: 'cart/cartSize'
+      cartSize: 'cart/cartSize',
+      meta: 'cart/meta'
     })
   }
 }

@@ -28,7 +28,7 @@
               <div class="select">
                 <select required v-model="form.shippingMethodId">
                   <option value="">Options</option>
-                  <option v-for="method in shippingMethods" :key="method.id">{{ method.name }}</option>
+                  <option v-for="method in shippingMethods" :key="method.id" :value="method.id">{{ method.name }}</option>
                 </select>
               </div>
             </div>

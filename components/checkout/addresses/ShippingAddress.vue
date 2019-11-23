@@ -79,6 +79,7 @@ export default {
     switchSelectedAddress (address) {
       this.selectedAddress = address
       this.selecting = false
+      this.$emit('input', address.id)
     },
     toggleSelecting () {
       this.selecting = !this.selecting

@@ -7,8 +7,23 @@
     </div>
 
     <div class="message-body">
+      <!-- address selections -->
+      <AddressSelector
+        v-if="selecting"
+        :addresses="localAddresses"
+        :selectedAddress="selectedAddress"
+        @select="switchSelectedAddress"
+        @cancel="toggleSelecting"
+      />
+
+      <AddressCreator
+        v-else-if="creating"
+        @cancel="toggleCreating"
+        @created="addressCreated"
+      />
+
       <!-- default address -->
-      <p v-if="!selecting">
+      <p v-else>
         {{ selectedAddress.name }} <br>
         {{ selectedAddress.address_1 }} <br>
         {{ selectedAddress.city }} <br>
@@ -16,19 +31,15 @@
         {{ selectedAddress.country.name }} <br>
       </p>
 
-      <!-- address selections -->
-      <AddressSelector
-        v-else
-        :addresses="localAddresses"
-        :selectedAddress="selectedAddress"
-        @select="switchSelectedAddress"
-      />
-
       <!-- change to selections mode -->
-      <div v-if="!selecting" class="field is-grouped" style="margin-top: 1.5rem;">
+      <div v-if="!selecting  && !creating" class="field is-grouped" style="margin-top: 1.5rem;">
         <p class="control">
           <button @click="toggleSelecting" class="button is-primary">
             Change shipping address
+          </button>
+
+          <button @click="toggleCreating" class="button is-primary">
+            Add new address
           </button>
         </p>
       </div>
@@ -38,16 +49,19 @@
 
 <script>
 import AddressSelector from './AddressSelector'
+import AddressCreator from './AddressCreator'
 
 export default {
   components: {
-    AddressSelector
+    AddressSelector,
+    AddressCreator
   },
   data () {
     return {
       localAddresses: this.addresses,
       selectedAddress: null,
-      selecting: false
+      selecting: false,
+      creating: false
     }
   },
   props: {
@@ -68,6 +82,14 @@ export default {
     },
     toggleSelecting () {
       this.selecting = !this.selecting
+    },
+    toggleCreating () {
+      this.creating = !this.creating
+    },
+    addressCreated (address) {
+      this.localAddresses.push(address)
+      this.switchSelectedAddress(address)
+      this.toggleCreating()
     }
   },
   created () {

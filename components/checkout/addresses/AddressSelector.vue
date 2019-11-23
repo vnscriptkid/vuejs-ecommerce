@@ -1,5 +1,6 @@
 <template>
   <div>
+    <a @click="$emit('cancel')"><strong>Go back</strong></a>
     <table class="table is-fullwidth is-hoverable is-dark">
       <tbody>
         <tr v-for="address in addresses" :key="address.id">
